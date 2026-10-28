@@ -1,0 +1,21 @@
+# 统一换行策略：仓库内一律存 LF，检出时由各平台的 core.autocrlf 决定。
+# 避免 Windows 下 CRLF / Linux 下 LF 来回改文件导致整份 diff 噪音。
+* text=auto
+
+# 二进制文件不做换行转换，否则会被写坏
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.pdf binary
+*.zip binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+
+# 这些文件必须保持 LF，否则在 Linux/容器里会出问题
+*.sh text eol=lf
+*.sql text eol=lf
+Dockerfile text eol=lf

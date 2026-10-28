@@ -1,0 +1,89 @@
+{
+  "name": "devflow-real-project-rag-baseline",
+  "label": "员工手册 RAG 基线（8 例）",
+  "description": "人工维护的固定回归基线，全部取自 docs/examples/rag_employee_handbook.md 的真实条款。覆盖直接抽取、跨条款推理、数值比较与「资料没写时应拒答」四类场景。运行前需先把该文档上传到当前仓库知识库，否则启动检查会报缺少来源。",
+  "schema_version": 1,
+  "recommended": true,
+  "cases": [
+    {
+      "id": "leave-days-and-notice",
+      "kind": "positive",
+      "source_type": "knowledge_file",
+      "source_file": "rag_employee_handbook.md",
+      "question": "正式员工每个自然年有多少天带薪年假？需要提前几个工作日提交申请？",
+      "reference": "正式员工每个自然年享有 10 天带薪年假，需要至少提前 3 个工作日在 OA 系统提交申请，由直属主管审批。",
+      "must_include": ["直属主管"],
+      "must_not_include": []
+    },
+    {
+      "id": "leave-approval-over-five-days",
+      "kind": "positive",
+      "source_type": "knowledge_file",
+      "source_file": "rag_employee_handbook.md",
+      "question": "连续休年假超过 5 天时，除了直属主管还需要谁审批？",
+      "reference": "连续休假超过 5 天时，除直属主管审批外，还需要部门负责人二次审批。",
+      "must_include": ["部门负责人"],
+      "must_not_include": []
+    },
+    {
+      "id": "leave-carryover-deadline",
+      "kind": "positive",
+      "source_type": "knowledge_file",
+      "source_file": "rag_employee_handbook.md",
+      "question": "上一年没用完的年假最晚什么时候必须用完？过期会怎样？",
+      "reference": "未使用的年假可以结转到下一自然年，但必须在次年 3 月 31 日前使用，逾期自动失效。",
+      "must_include": ["次年"],
+      "must_not_include": []
+    },
+    {
+      "id": "remote-work-quota-and-deadline",
+      "kind": "positive",
+      "source_type": "knowledge_file",
+      "source_file": "rag_employee_handbook.md",
+      "question": "每周最多可以申请几天远程办公？最晚要在什么时候提交申请？",
+      "reference": "员工每周最多申请 2 天远程办公，申请应在前一工作日 18:00 前提交，并写明工作地点、当日任务和可联系时间。",
+      "must_include": ["远程办公"],
+      "must_not_include": []
+    },
+    {
+      "id": "p0-incident-response-sla",
+      "kind": "positive",
+      "source_type": "knowledge_file",
+      "source_file": "rag_employee_handbook.md",
+      "question": "发生 P0 事故时，值班工程师的响应时限是多少？复盘文档要在多久内完成？",
+      "reference": "P0 事故要求值班工程师在 5 分钟内响应，在 15 分钟内建立事故协作群；服务恢复后 2 个工作日内必须完成复盘文档，复盘负责人由当次 Incident Commander 指定。",
+      "must_include": ["复盘"],
+      "must_not_include": []
+    },
+    {
+      "id": "expense-approval-inference",
+      "kind": "positive",
+      "source_type": "knowledge_file",
+      "source_file": "rag_employee_handbook.md",
+      "question": "单笔 6000 元的费用需要谁审批？",
+      "reference": "单笔 5000 元以内的费用由直属主管审批，5000 元以上还需要部门负责人审批；因此 6000 元需要直属主管与部门负责人共同审批。",
+      "must_include": ["部门负责人"],
+      "must_not_include": ["不需要部门负责人", "只需直属主管即可"]
+    },
+    {
+      "id": "travel-hotel-standard-non-tier1",
+      "kind": "positive",
+      "source_type": "knowledge_file",
+      "source_file": "rag_employee_handbook.md",
+      "question": "去成都出差，住宿每晚的标准是多少？",
+      "reference": "差旅住宿标准为一线城市每晚不超过 600 元，其他城市每晚不超过 450 元；成都属于其他城市，适用每晚不超过 450 元的标准。",
+      "must_include": ["450"],
+      "must_not_include": []
+    },
+    {
+      "id": "abstain-marriage-leave",
+      "kind": "negative",
+      "source_type": "knowledge_file",
+      "source_file": "rag_employee_handbook.md",
+      "question": "员工每年有多少天婚假？",
+      "reference": "资料中只规定了年假、远程办公、生产故障响应和费用报销，没有提到婚假。正确做法是明确说明资料未提供婚假信息，并建议查阅人力资源制度，而不是给出一个具体天数。",
+      "must_include": [],
+      "must_not_include": ["10天婚假", "10 天婚假", "享有 10 天婚假"]
+    }
+  ]
+}
